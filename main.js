@@ -52,10 +52,33 @@ Physics(function (world) {
         world.step(time);
     });
 
-    world.on('collisions:detected', function() {
-        // alert("collision");
+    world.on('collisions:detected', function(e) {
+
+        // check that the target is close to the target
+        var capsule_x = capsule.state.pos.x;
+        var capsule_y = capsule.state.pos.y;
+        var target_x = target.state.pos.x;
+        var target_y = target.state.pos.y;
+
+        var dist = Math.sqrt((capsule_x - target_x) * (capsule_x - target_x) + (capsule_y - target_y) * (capsule_y - target_y));
+        if (dist > target.radius + capsule.radius + 0.01) {
+            alert("gameover");
+            // too far; colliding with another object
+        } else {
+            // check the velocity
+            var capsule_vx = capsule.state.vel.x;
+            var capsule_vy = capsule.state.vel.y;
+
+            var vel_magnitude = Math.sqrt(capsule_vx*capsule_vx + capsule_vy*capsule_vy)
+            console.log(capsule_vx, capsule_vy, vel_magnitude);
+            if (vel_magnitude > 0.25) {
+                alert("gameover");
+            } else {
+                alert("next level");
+            }
+        }
     });
 
     world.render();
 });
-// Physics.util.ticker.start();
+
