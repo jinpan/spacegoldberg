@@ -1,3 +1,7 @@
 #viewport {
   background: url("img/space.jpg");
+  border: 2px solid #fff;
+}
+body {
+  background-color: #000;
 }
