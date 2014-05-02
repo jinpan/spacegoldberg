@@ -7,8 +7,8 @@
 Physics(function (world) {
     var renderer = Physics.renderer('canvas', {
         el: 'viewport',
-        width: 1000,
-        height: 1000
+        width: 1200,
+        height: 700
     });
     world.add(renderer);
 
