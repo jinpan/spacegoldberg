@@ -34,10 +34,7 @@ Physics(function (world) {
         mass: 2
     });
 
-    capsule.applyForce({
-        x: 0.005,
-        y: 0.002
-    });
+    
 
     world.add(target);
     world.addBehavior(targetAttraction);
@@ -79,6 +76,20 @@ Physics(function (world) {
         }
     });
 
+
+    $("#viewport").click(function(e) {
+		var raw_init_x = e.clientX - this.offsetLeft - capsule.state.pos.x;
+		var raw_init_y = e.clientY - this.offsetTop - capsule.state.pos.y;
+
+		capsule.applyForce({
+        		x: 0.001*raw_init_x,
+        		y: 0.001*raw_init_y
+    		});
+		Physics.util.ticker.start();
+    });
+
     world.render();
 });
+
+
 
