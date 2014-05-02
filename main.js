@@ -53,7 +53,7 @@ Physics(function (world) {
     });
 
     world.on('collisions:detected', function() {
-        alert("collision");
+        // alert("collision");
     });
 
     world.render();
