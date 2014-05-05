@@ -7,6 +7,11 @@ var renderer = Physics.renderer('canvas', {
 });
 world.add(renderer);
 
+var collisionDetector = Physics.behavior('body-collision-detection', {
+    check: true
+});
+world.addBehavior(collisionDetector);
+
 world.on('step', function() {
     world.render();
 });
