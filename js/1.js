@@ -114,17 +114,20 @@ Physics(function (world) {
 		ctx.stroke();
 		
 	});
-		
+	
+    var first = true;
 
 	$("#viewport").click(function(e) {
 		var raw_init_x = e.pageX - this.offsetLeft - capsule.state.pos.x;
 		var raw_init_y = e.pageY - this.offsetTop - capsule.state.pos.y;
-
-		capsule.applyForce({
-        		x: 0.0001*raw_init_x,
-        		y: 0.0001*raw_init_y
+        if (first) {
+            capsule.applyForce({
+                    x: 0.0001*raw_init_x,
+                    y: 0.0001*raw_init_y
     		});
-		Physics.util.ticker.start();
+            Physics.util.ticker.start();
+        }
+        first = false;
     });
 
 
