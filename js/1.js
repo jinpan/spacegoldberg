@@ -109,7 +109,7 @@ Physics(function (world) {
 		world.render();
 		ctx.beginPath();
 		ctx.moveTo(capsule.state.pos.x,capsule.state.pos.y);
-		ctx.lineTo(e.clientX - this.offsetLeft,e.clientY - this.offsetTop);
+		ctx.lineTo(e.pageX - this.offsetLeft,e.pageY - this.offsetTop);
 		ctx.strokeStyle = '#00ff00';
 		ctx.stroke();
 		
@@ -117,8 +117,8 @@ Physics(function (world) {
 		
 
 	$("#viewport").click(function(e) {
-		var raw_init_x = e.clientX - this.offsetLeft - capsule.state.pos.x;
-		var raw_init_y = e.clientY - this.offsetTop - capsule.state.pos.y;
+		var raw_init_x = e.pageX - this.offsetLeft - capsule.state.pos.x;
+		var raw_init_y = e.pageY - this.offsetTop - capsule.state.pos.y;
 
 		capsule.applyForce({
         		x: 0.0001*raw_init_x,
