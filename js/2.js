@@ -13,10 +13,10 @@ Physics(function (world) {
     world.add(renderer);
 
     var target = Physics.body('circle', {
-        x: 550,
-        y: 550,
-        treatment: 'static',
-        radius: 45
+        x: 750,
+        y: 750,
+        treatment: 'kinematic',
+        radius: 15
     });
 
     var targetAttraction = Physics.behavior('attractor', {
@@ -30,14 +30,48 @@ Physics(function (world) {
     var capsule = Physics.body('circle', {
         x: 250,
         y: 250,
-        radius: 20,
+        radius: 10,
         mass: 2
     });
 
-    
+    var mercury = Physics.body('circle', {
+        x: 200,
+        y: 200,
+        treatment: 'kinematric',
+        radius: 20
+    });
+    var mercuryAttraction = Physics.behavior('attractor', {
+        pos: mercury.state.pos
+    });
+
+    var venus = Physics.body('circle', {
+        x: 400,
+        y: 400,
+        treatment: 'kinematic',
+        radius: 15
+    });
+    var venusAttraction = Physics.behavior('attractor', {
+        pos: venus.state.pos
+    });
+
+    var earth = Physics.body('circle', {
+        x: 600,
+        y: 600,
+        treatment: 'kinematic',
+        radius: 15
+    });
+    var earthAttraction = Physics.behavior('attractor', {
+        pos: earth.state.pos
+    });
 
     world.add(target);
     world.addBehavior(targetAttraction);
+    world.add(mercury);
+    world.addBehavior(mercuryAttraction);
+    world.add(venus);
+    world.addBehavior(venusAttraction);
+    world.add(earth);
+    world.addBehavior(earthAttraction);
     world.addBehavior(collisionDetector);
     world.add(capsule);
 
@@ -59,8 +93,8 @@ Physics(function (world) {
 
         var dist = Math.sqrt((capsule_x - target_x) * (capsule_x - target_x) + (capsule_y - target_y) * (capsule_y - target_y));
         if (dist > target.radius + capsule.radius + 0.01) {
-            alert("gameover");
             // too far; colliding with another object
+            gameOver();
         } else {
             // check the velocity
             var capsule_vx = capsule.state.vel.x;
@@ -68,10 +102,10 @@ Physics(function (world) {
 
             var vel_magnitude = Math.sqrt(capsule_vx*capsule_vx + capsule_vy*capsule_vy)
             console.log(capsule_vx, capsule_vy, vel_magnitude);
-            if (vel_magnitude > 0.25) {
-                alert("gameover");
+            if (vel_magnitude > 5) {
+                gameOver();
             } else {
-                alert("next level");
+                nextLevel();
             }
         }
     });
@@ -82,8 +116,8 @@ Physics(function (world) {
 		var raw_init_y = e.clientY - this.offsetTop - capsule.state.pos.y;
 
 		capsule.applyForce({
-        		x: 0.001*raw_init_x,
-        		y: 0.001*raw_init_y
+        		x: 0.0001*raw_init_x,
+        		y: 0.0001*raw_init_y
     		});
 		Physics.util.ticker.start();
     });
@@ -92,4 +126,14 @@ Physics(function (world) {
 });
 
 
+function gameOver() {
+    $("#gameover").dimmer("show");
+    setTimeout(function(){location.reload();}, 500);
+}
+
+function nextLevel() {
+    $("#nextlevel").dimmer("show");
+    setTimeout(function(){location = "2.html"}, 500);
+
+}
 
