@@ -9,10 +9,6 @@ var targetAttraction = Physics.behavior('attractor', {
      pos: target.state.pos,
 });
 
-var collisionDetector = Physics.behavior('body-collision-detection', {
-    check: true
-});
-
 var capsule = Physics.body('circle', {
     x: 250,
     y: 250,
@@ -28,7 +24,6 @@ addPlanet(400, 400, 15);
 
 world.add(target);
 world.addBehavior(targetAttraction);
-world.addBehavior(collisionDetector);
 world.add(capsule);
 
 world.render();
