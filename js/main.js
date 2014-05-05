@@ -80,7 +80,7 @@ function addPlanet(x, y, radius) {
         x: x,
         y: y,
         treatment: 'kinematic',
-        radius: 20
+        radius: radius
     });
     var planetAttraction = Physics.behavior('attractor', {
         pos: planet.state.pos
