@@ -109,6 +109,19 @@ Physics(function (world) {
             }
         }
     });
+    
+    $("#viewport").mousemove(function(e) {
+		var c = document.getElementById("viewport");
+		var ctx = c.getContext("2d");
+		ctx.clearRect(0,0,c.width,c.height);
+		world.render();
+		ctx.beginPath();
+		ctx.moveTo(capsule.state.pos.x,capsule.state.pos.y);
+		ctx.lineTo(e.clientX - this.offsetLeft,e.clientY - this.offsetTop);
+		ctx.strokeStyle = '#00ff00';
+		ctx.stroke();
+		
+	});
 
 
     $("#viewport").click(function(e) {
