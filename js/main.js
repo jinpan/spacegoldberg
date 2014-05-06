@@ -75,7 +75,7 @@ $("#viewport").click(function(e) {
     first = false;
 });
 
-function addPlanet(x, y, radius) {
+function addPlanet(x, y, radius, imgName) {
     var planet = Physics.body('circle', {
         x: x,
         y: y,
@@ -85,6 +85,10 @@ function addPlanet(x, y, radius) {
     var planetAttraction = Physics.behavior('attractor', {
         pos: planet.state.pos
     });
+    if (imgName !== 'undefined') {
+        planet.view = new Image();
+        planet.view.src = ('/images/' + imgName);
+    }
     world.add(planet);
     world.add(planetAttraction);
 }
