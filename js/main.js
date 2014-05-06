@@ -11,6 +11,15 @@ var collisionDetector = Physics.behavior('body-collision-detection', {
     check: true
 });
 world.addBehavior(collisionDetector);
+var edgeCollisionDetector = Physics.behavior('edge-collision-detection', {
+    aabb: Physics.aabb(
+        0,
+        0,
+        renderer.options.width,
+        renderer.options.height
+    )
+});
+world.addBehavior(edgeCollisionDetector);
 
 world.on('step', function() {
     world.render();
