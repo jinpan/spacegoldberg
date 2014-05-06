@@ -10,7 +10,7 @@ var targetAttraction = Physics.behavior('attractor', {
 });
 
 target.view = new Image();
-target.view.src = ('/images/mars.jpg');
+target.view.src = ('css/images/mars.jpg');
 
 var capsule = Physics.body('circle', {
     x: 250,
@@ -20,7 +20,7 @@ var capsule = Physics.body('circle', {
 });
 
 capsule.view = new Image();
-capsule.view.src = ('/images/spaceship.png');
+capsule.view.src = ('css/images/spaceship.png');
 
 // mercury
 addPlanet(200, 200, 20, "mercury.jpg");

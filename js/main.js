@@ -87,7 +87,7 @@ function addPlanet(x, y, radius, imgName) {
     });
     if (imgName !== 'undefined') {
         planet.view = new Image();
-        planet.view.src = ('/images/' + imgName);
+        planet.view.src = ('css/images/' + imgName);
     }
     world.add(planet);
     world.add(planetAttraction);
