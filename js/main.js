@@ -57,7 +57,7 @@ $("#viewport").mousemove(function(e) {
     ctx.lineTo(e.pageX - this.offsetLeft,e.pageY - this.offsetTop);
     ctx.strokeStyle = '#00ff00';
     ctx.stroke();
-    
+
 });
 
 var first = true;
@@ -95,7 +95,12 @@ function addPlanet(x, y, radius, imgName) {
 
 function gameOver() {
     $("#gameover").dimmer("show");
-    setTimeout(function(){location.reload();}, 500);
+    setTimeout(function(){
+        if (location.href.indexOf("#retry") == -1){
+            location = location.href + "#retry";
+        }
+        location.reload()
+    }, 500);
 }
 
 function nextLevel() {
@@ -103,3 +108,12 @@ function nextLevel() {
     setTimeout(function(){location = "2.html"}, 500);
 }
 
+$("#intro").click(function() {
+    $("#intro").dimmer('hide');
+});
+
+$(document).ready(function() {
+    if (location.hash == "") {
+        $("#intro").dimmer('show');
+    }
+});
