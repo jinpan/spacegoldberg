@@ -37,3 +37,4 @@ world.add(capsule);
 
 world.render();
 
+go = true;
