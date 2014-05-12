@@ -26,3 +26,8 @@ body {
   padding: 10px;
   border: 1px solid #fff;
 }
+#gameover {
+  font-size: 36px;
+  font-family: 'Audiowide', cursive;
+  text-transform: uppercase;
+}
