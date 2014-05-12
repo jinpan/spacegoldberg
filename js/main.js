@@ -2,7 +2,7 @@ var world = Physics();
 
 var renderer = Physics.renderer('canvas', {
     el: 'viewport',
-    width: screen.availWidth,
+    width: $(window).width(),
     height: $(window).height()
 });
 world.add(renderer);
