@@ -64,7 +64,7 @@ world.on('interact:grab', function( data ){
     data.x; // the x coord
     data.y; // the y coord
     data.body; // the body that was grabbed
-    console.log(data.body.uid);
+
     if (data.body.uid > 2) {
         grabbed = true;
     }
@@ -72,19 +72,20 @@ world.on('interact:grab', function( data ){
 world.on('interact:move', function( data ){
     data.x; // the x coord
     data.y; // the y coord
-    data.body; // the body that was grabbed (if applicable)
+    //data.body; // the body that was grabbed (if applicable)
     if (grabbed){
         data.body.state.pos.x = data.x; 
         data.body.state.pos.y = data.y;
+		data.body.treatment = "kinematic";
     }
 });
 // when the viewport is released (mouseup, touchend)
 world.on('interact:release', function( data ){
     data.x; // the x coord
     data.y; // the y coord
-    data.body.state.pos.x = data.x; 
-    data.body.state.pos.y = data.y;
+	console.log(data);
     grabbed = false;
+
 });
 
 var go = false;
