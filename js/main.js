@@ -2,8 +2,8 @@ var world = Physics();
 
 var renderer = Physics.renderer('canvas', {
     el: 'viewport',
-    width: 1000,
-    height: 700
+    width: screen.availWidth,
+    height: $(window).height()
 });
 world.add(renderer);
 
