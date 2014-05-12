@@ -7,6 +7,10 @@ var renderer = Physics.renderer('canvas', {
 });
 world.add(renderer);
 
+world.add([
+    Physics.behavior('interactive', renderer)
+]);
+
 var collisionDetector = Physics.behavior('body-collision-detection', {
     check: true
 });
@@ -29,7 +33,6 @@ Physics.util.ticker.on(function(time) {
 });
 
 world.on('collisions:detected', function(e) {
-
     // check that the target is close to the target
     var capsule_x = capsule.state.pos.x;
     var capsule_y = capsule.state.pos.y;
@@ -55,34 +58,76 @@ world.on('collisions:detected', function(e) {
     }
 });
 
+var grabbed = false;
+
+world.on('interact:grab', function( data ){
+    data.x; // the x coord
+    data.y; // the y coord
+    data.body; // the body that was grabbed
+
+    if (data.body.uid > 2) {
+        grabbed = true;
+    }
+});
+world.on('interact:move', function( data ){
+    data.x; // the x coord
+    data.y; // the y coord
+    //data.body; // the body that was grabbed (if applicable)
+    if (grabbed){
+        data.body.state.pos.x = data.x; 
+        data.body.state.pos.y = data.y;
+		data.body.treatment = "kinematic";
+    }
+});
+// when the viewport is released (mouseup, touchend)
+world.on('interact:release', function( data ){
+    data.x; // the x coord
+    data.y; // the y coord
+	console.log(data);
+    grabbed = false;
+
+});
+
+var go = false;
+
+$("document").on("click", "#start-btn", function() {
+    		go = true;
+});
 
 $("#viewport").mousemove(function(e) {
-    var c = document.getElementById("viewport");
-    var ctx = c.getContext("2d");
-    ctx.clearRect(0,0,c.width,c.height);
     world.render();
-    ctx.beginPath();
-    ctx.moveTo(capsule.state.pos.x,capsule.state.pos.y);
-    ctx.lineTo(e.pageX - this.offsetLeft,e.pageY - this.offsetTop);
-    ctx.strokeStyle = '#00ff00';
-    ctx.stroke();
+    if (go) {
+        var c = document.getElementById("viewport");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0,0,c.width,c.height);
+        world.render();
+        ctx.beginPath();
+        ctx.moveTo(capsule.state.pos.x,capsule.state.pos.y);
+        ctx.lineTo(e.pageX - this.offsetLeft,e.pageY - this.offsetTop);
+        ctx.strokeStyle = '#00ff00';
+        ctx.stroke();
+    }
 
 });
 
 var first = true;
 
 $("#viewport").click(function(e) {
-    var raw_init_x = e.pageX - this.offsetLeft - capsule.state.pos.x;
-    var raw_init_y = e.pageY - this.offsetTop - capsule.state.pos.y;
-    if (first) {
-        capsule.applyForce({
-                x: 0.0001*raw_init_x,
-                y: 0.0001*raw_init_y
-        });
-        Physics.util.ticker.start();
+    if (go) {
+        var raw_init_x = e.pageX - this.offsetLeft - capsule.state.pos.x;
+        var raw_init_y = e.pageY - this.offsetTop - capsule.state.pos.y;
+        if (first) {
+            capsule.applyForce({
+                    x: 0.0001*raw_init_x,
+                    y: 0.0001*raw_init_y
+            });
+            Physics.util.ticker.start();
+        }
+        first = false;
     }
-    first = false;
 });
+
+
 
 function addPlanet(x, y, radius, imgName) {
     var planet = Physics.body('circle', {
@@ -91,6 +136,7 @@ function addPlanet(x, y, radius, imgName) {
         treatment: 'kinematic',
         radius: radius
     });
+
     var planetAttraction = Physics.behavior('attractor', {
         pos: planet.state.pos
     });
@@ -101,6 +147,9 @@ function addPlanet(x, y, radius, imgName) {
     world.add(planet);
     world.add(planetAttraction);
 }
+
+
+
 
 function gameOver() {
     $("#gameover").dimmer("show");
