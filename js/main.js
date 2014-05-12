@@ -55,34 +55,46 @@ world.on('collisions:detected', function(e) {
     }
 });
 
+var go = false;
+
+$("document").on("click", "#start-btn", function() {
+    		go = true;
+});
 
 $("#viewport").mousemove(function(e) {
-    var c = document.getElementById("viewport");
-    var ctx = c.getContext("2d");
-    ctx.clearRect(0,0,c.width,c.height);
     world.render();
-    ctx.beginPath();
-    ctx.moveTo(capsule.state.pos.x,capsule.state.pos.y);
-    ctx.lineTo(e.pageX - this.offsetLeft,e.pageY - this.offsetTop);
-    ctx.strokeStyle = '#00ff00';
-    ctx.stroke();
+    if (go) {
+        var c = document.getElementById("viewport");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0,0,c.width,c.height);
+        world.render();
+        ctx.beginPath();
+        ctx.moveTo(capsule.state.pos.x,capsule.state.pos.y);
+        ctx.lineTo(e.pageX - this.offsetLeft,e.pageY - this.offsetTop);
+        ctx.strokeStyle = '#00ff00';
+        ctx.stroke();
+    }
 
 });
 
 var first = true;
 
 $("#viewport").click(function(e) {
-    var raw_init_x = e.pageX - this.offsetLeft - capsule.state.pos.x;
-    var raw_init_y = e.pageY - this.offsetTop - capsule.state.pos.y;
-    if (first) {
-        capsule.applyForce({
-                x: 0.0001*raw_init_x,
-                y: 0.0001*raw_init_y
-        });
-        Physics.util.ticker.start();
+    if (go) {
+        var raw_init_x = e.pageX - this.offsetLeft - capsule.state.pos.x;
+        var raw_init_y = e.pageY - this.offsetTop - capsule.state.pos.y;
+        if (first) {
+            capsule.applyForce({
+                    x: 0.0001*raw_init_x,
+                    y: 0.0001*raw_init_y
+            });
+            Physics.util.ticker.start();
+        }
+        first = false;
     }
-    first = false;
 });
+
+
 
 function addPlanet(x, y, radius, imgName) {
     var planet = Physics.body('circle', {
@@ -91,6 +103,33 @@ function addPlanet(x, y, radius, imgName) {
         treatment: 'kinematic',
         radius: radius
     });
+    
+    var DOMPlanet = $(planet);
+    
+    DOMPlanet.attr("id", "imgName");
+    DOMPlanet.attr("draggable", "true");
+    
+    DOMPlanet.on( "drag", function( event, ui ) {console.log("drag me");} );
+    
+    document.getElementById('imgName').onmousedown = function() {
+      this.style.position = 'absolute'
+
+      var self = this
+
+      document.onmousemove = function(e) {
+        e = e || event
+        //fixPageXY(e)  
+        // put ball center under mouse pointer. 25 is half of width/height
+        self.style.left = e.pageX-25+'px' 
+        self.style.top = e.pageY-25+'px' 
+      }
+      this.onmouseup = function() {
+        document.onmousemove = null
+      }
+}
+
+
+
     var planetAttraction = Physics.behavior('attractor', {
         pos: planet.state.pos
     });
@@ -101,6 +140,9 @@ function addPlanet(x, y, radius, imgName) {
     world.add(planet);
     world.add(planetAttraction);
 }
+
+
+
 
 function gameOver() {
     $("#gameover").dimmer("show");
