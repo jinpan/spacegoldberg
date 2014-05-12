@@ -7,6 +7,10 @@ var renderer = Physics.renderer('canvas', {
 });
 world.add(renderer);
 
+world.add([
+    Physics.behavior('interactive', renderer)
+]);
+
 var collisionDetector = Physics.behavior('body-collision-detection', {
     check: true
 });
@@ -29,7 +33,6 @@ Physics.util.ticker.on(function(time) {
 });
 
 world.on('collisions:detected', function(e) {
-
     // check that the target is close to the target
     var capsule_x = capsule.state.pos.x;
     var capsule_y = capsule.state.pos.y;
@@ -53,6 +56,35 @@ world.on('collisions:detected', function(e) {
             nextLevel();
         }
     }
+});
+
+var grabbed = false;
+
+world.on('interact:grab', function( data ){
+    data.x; // the x coord
+    data.y; // the y coord
+    data.body; // the body that was grabbed
+    console.log(data.body.uid);
+    if (data.body.uid > 2) {
+        grabbed = true;
+    }
+});
+world.on('interact:move', function( data ){
+    data.x; // the x coord
+    data.y; // the y coord
+    data.body; // the body that was grabbed (if applicable)
+    if (grabbed){
+        data.body.state.pos.x = data.x; 
+        data.body.state.pos.y = data.y;
+    }
+});
+// when the viewport is released (mouseup, touchend)
+world.on('interact:release', function( data ){
+    data.x; // the x coord
+    data.y; // the y coord
+    data.body.state.pos.x = data.x; 
+    data.body.state.pos.y = data.y;
+    grabbed = false;
 });
 
 var go = false;
@@ -103,32 +135,6 @@ function addPlanet(x, y, radius, imgName) {
         treatment: 'kinematic',
         radius: radius
     });
-    
-    var DOMPlanet = $(planet);
-    
-    DOMPlanet.attr("id", "imgName");
-    DOMPlanet.attr("draggable", "true");
-    
-    DOMPlanet.on( "drag", function( event, ui ) {console.log("drag me");} );
-    
-    document.getElementById('imgName').onmousedown = function() {
-      this.style.position = 'absolute'
-
-      var self = this
-
-      document.onmousemove = function(e) {
-        e = e || event
-        //fixPageXY(e)  
-        // put ball center under mouse pointer. 25 is half of width/height
-        self.style.left = e.pageX-25+'px' 
-        self.style.top = e.pageY-25+'px' 
-      }
-      this.onmouseup = function() {
-        document.onmousemove = null
-      }
-}
-
-
 
     var planetAttraction = Physics.behavior('attractor', {
         pos: planet.state.pos
