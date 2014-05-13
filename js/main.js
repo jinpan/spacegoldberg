@@ -167,7 +167,13 @@ function gameOver() {
 
 function nextLevel() {
     $("#nextlevel").dimmer("show");
-    setTimeout(function(){location = "2.html"}, 500);
+    if (level == 1) {
+        setTimeout(function(){location = "2.html"}, 500);
+    }
+    else if (level == 2) {
+        setTimeout(function(){location = "3.html"}, 500);
+    }
+        
 }
 
 $("#intro").click(function() {
