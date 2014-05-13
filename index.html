@@ -4,31 +4,80 @@
     <script type="text/javascript" src="js/physics.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/semantic.min.js"></script>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/semantic.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Audiowide|Roboto:400,700|Maven+Pro:400,700' rel='stylesheet' type='text/css'>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
 </head>
 <body>
-    <div class="ui page dimmer active" id="intro">
-        <div class="content" id="story">
+    <div class="ui page dimmer active" data-id="1" id="intro-1">
+        <div class="content">
             <div class="center">
-                <h1>Space Goldberg</h1>
-                <p>The Earth is dying. Humanity has used up much of her resources, and the Sun is bloating into a red giant that will soon consume the Earth. It is time to move onward to a new Solar System. You are the leader of the last group of humans, whose hope lies in you and your ability to pilot the last spaceship to a new home.</p>
+                <div class="story">
+                    <h1>Space Goldberg</h1>
 
-                <p>Humanity has discovered a new technology. They call it the bender. By warping space time, the bender can transport spaceships across large distances in the galaxy. Unfortunately, the bender can only work if it is a considerable distance from any other large bodies of matter.</p>
+                    <img src="css/images/red_giant.jpg" />
 
-                <p>With the lack of resources on Earth, there is not enough fuel of any kind to push your spaceship filled with the last of humanity far enough out of the solar system to use the bender. Some of your engineers believe that there is a way to escape the solar system on the current amount of fuel. They explain that some of the early space missions led by humanity used mysterious techniques to help their spaceships reach distant planets with much less fuel than would have been required to fly directly there. However, none of them know exactly how this was done . . . </p>
-                <p><div class="proceed-msg">- Click to continue -</div></p>
+                    <p>The Earth is dying. Humanity has used up much of her resources, and the Sun is bloating into a red giant that will soon consume the Earth. It is time to move onward to a new Solar System. You are the leader of the last group of humans, whose hope lies in you and your ability to pilot the last spaceship to a new home.</p>
+                    <!-- <p><div class="proceed-msg">- Click to continue -</div></p> -->
+                </div>
+                <a href="#" class="next">Next ></a>
             </div>
         </div>
     </div>
+
+    <div class="ui page dimmer" data-id="2" id="intro-2">
+        <div class="content">
+            <div class="center">
+                <div class="story">
+                    <h1>Space Goldberg</h1>
+                    <img src="css/images/warp_drive.jpg" />
+                    <p>Humanity has discovered a new technology. They call it the bender. By warping space time, the bender can transport spaceships across large distances in the galaxy. Unfortunately, the bender can only work if it is a considerable distance from any other large bodies of matter.</p>
+                </div>
+                    <!-- <p><div class="proceed-msg">- Click to continue -</div></p> -->
+                    <a href="#" class="previous">< Previous</a>
+                    <a href="#" class="next">Next ></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui page dimmer" data-id="3" id="intro-3">
+        <div class="content">
+            <div class="center">
+                <div class="story">
+                    <h1>Space Goldberg</h1>
+                    <img src="css/images/future-spaceship.jpg" class="story-img"/>
+                    <p>With the lack of resources on Earth, there is not enough fuel of any kind to push your spaceship filled with the last of humanity far enough out of the solar system to use the bender. Some of your engineers believe that there is a way to escape the solar system on the current amount of fuel. They explain that some of the early space missions led by humanity used mysterious techniques to help their spaceships reach distant planets with much less fuel than would have been required to fly directly there. However, none of them know exactly how this was done . . . </p>
+                </div>
+                <!-- <p><div class="proceed-msg">- Click to continue -</div></p> -->
+                <a href="#" class="previous">< Previous</a>
+                <a href="#" id="next-level">Next ></a>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
-        $("#intro").click(function() {
-            $("#intro").dimmer('hide');
+        $("#next-level").click(function() {
+            $("#intro-3").dimmer('hide');
             setTimeout(function() {location = "1.html"}, 500);
         });
+
+        $(".next").click(function() {
+            var thisPage = $(this).parents(".page");
+            var nextPageId = parseInt(thisPage.attr("data-id")) + 1;
+            var nextPage = $("#intro-"+nextPageId);
+            thisPage.dimmer('hide');
+            nextPage.dimmer('show');
+        });
+
+        $(".previous").click(function() {
+            var thisPage = $(this).parents(".page");
+            var nextPageId = parseInt(thisPage.attr("data-id")) - 1;
+            var nextPage = $("#intro-"+nextPageId);
+            thisPage.dimmer('hide');
+            nextPage.dimmer('show');
+        })
     </script>
 </body>
 </html>
