@@ -117,14 +117,14 @@ function nextLevel() {
     setTimeout(function(){location = "2.html"}, 500);
 }
 
-$("#intro").click(function() {
-    $("#intro").dimmer('hide');
-    $("#audio")[0].play();
-});
 
 $(document).ready(function() {
     if (location.hash == "") {
         $("#intro").dimmer('show');
     }
+    $(".proceed-msg").click(function() {
+        $("#intro").dimmer('hide');
+        $("#audio")[0].play();
+    });
 });
 
