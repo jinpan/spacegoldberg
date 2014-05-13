@@ -180,6 +180,7 @@ function nextLevel() {
 
 $("#intro").click(function() {
     $("#intro").dimmer('hide');
+    $("#audio")[0].play();
 });
 
 $(document).ready(function() {

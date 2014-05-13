@@ -1,3 +1,17 @@
+var target = Physics.body('circle', {
+    x: 800,
+    y: 600,
+    treatment: 'kinematic',
+    radius: 15
+});
+
+var targetAttraction = Physics.behavior('attractor', {
+    pos: target.state.pos
+});
+
+target.view = new Image();
+target.view.src = ('css/images/mars.jpg');
+
 var capsule = Physics.body('circle', {
     x: 260,
     y: 240,
@@ -16,13 +30,11 @@ addPlanet(50, 50, 20, "earth.jpg");
 // venus
 addPlanet(50, 100, 20, "venus.jpg");
 
-// mars
-addPlanet(50, 150, 15, "mars.jpg");
-
-
-
-
-world.render();
 
 level = 3;
+
+world.add(target);
+world.addBehavior(targetAttraction);
+
+world.render();
 

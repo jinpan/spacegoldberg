@@ -6,7 +6,7 @@ var target = Physics.body('circle', {
 });
 
 var targetAttraction = Physics.behavior('attractor', {
-     pos: target.state.pos,
+     pos: target.state.pos
 });
 
 target.view = new Image();

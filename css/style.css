@@ -18,9 +18,7 @@ body {
 }
 .ui.dimmer > .content .proceed-msg {
   text-transform: uppercase;
-  font-size: 28px;
   margin-top: 50px;
-  color: #00ff27;
 }
 .ui.dimmer > .content .instructions {
   padding: 10px;
@@ -37,16 +35,13 @@ body {
 .story-img {
   height: 250px;
 }
-.next,
-.previous,
-#next-level {
+.story-nav {
   color: #00ff27;
   text-decoration: none;
   font-size: 1.2em;
+  font-family: 'Audiowide', cursive;
 }
-.next:hover,
-.previous:hover,
-#next-level:hover {
+.story-nav:hover {
   text-shadow: 0 0 0.2em #fff;
 }
 .next,
