@@ -59,6 +59,8 @@ world.on('collisions:detected', function(e) {
     }
 });
 
+var planetAttraction = Physics.behavior('attractor');
+
 var grabbed = false;
 
 world.on('interact:grab', function( data ){
@@ -68,6 +70,7 @@ world.on('interact:grab', function( data ){
 
     if (data.body.uid > 2) {
         grabbed = true;
+        world.add(planetAttraction);
     }
 });
 world.on('interact:move', function( data ){
@@ -78,6 +81,7 @@ world.on('interact:move', function( data ){
         data.body.state.pos.x = data.x; 
         data.body.state.pos.y = data.y;
         data.body.treatment = "kinematic";
+        planetAttraction.position(data.body.state.pos);
     }
 });
 // when the viewport is released (mouseup, touchend)
@@ -138,16 +142,14 @@ function addPlanet(x, y, radius, imgName) {
         treatment: 'kinematic',
         radius: radius
     });
-
-    var planetAttraction = Physics.behavior('attractor', {
-        pos: planet.state.pos
-    });
+    
     if (imgName !== 'undefined') {
         planet.view = new Image();
         planet.view.src = ('css/images/' + imgName);
     }
     world.add(planet);
     world.add(planetAttraction);
+    planetAttraction.position(planet.state.pos);
 }
 
 
