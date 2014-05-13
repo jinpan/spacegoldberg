@@ -1,5 +1,6 @@
 green = #00FF27
 gray = #3A3838
+border_radius = 10px
 
 body
 	background-color #000
@@ -64,10 +65,15 @@ body
 	font-size 18px
 	color green
 	z-index 5
-	-webkit-border-radius: 12px; 
-	-moz-border-radius: 12px; 
-	border-radius: 12px;
+	-webkit-border-radius border_radius
+	-moz-border-radius border_radius 
+	border-radius border_radius
 	margin 20px auto
 	background-color gray
 	left 0
 	right 0
+	cursor pointer
+
+	&:hover
+		background-color #ccc
+		color #000
