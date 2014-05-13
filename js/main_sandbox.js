@@ -148,11 +148,13 @@ function addPlanet(x, y, radius, imgName) {
         planet.view.src = ('css/images/' + imgName);
     }
     world.add(planet);
+
+    var planetAttraction = Physics.behavior('attractor', {
+        pos: planet.state.pos
+    });
     world.add(planetAttraction);
     planetAttraction.position(planet.state.pos);
 }
-
-
 
 
 function gameOver() {
@@ -185,3 +187,4 @@ $(document).ready(function() {
         $("#intro").dimmer('show');
     }
 });
+
