@@ -19,6 +19,7 @@ body {
 .ui.dimmer > .content .proceed-msg {
   text-transform: uppercase;
   margin-top: 50px;
+  display: block;
 }
 .ui.dimmer > .content .instructions {
   padding: 10px;
