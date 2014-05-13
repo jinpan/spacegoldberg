@@ -25,6 +25,7 @@ body {
   padding: 10px;
   border: 1px solid #fff;
 }
+#nextlevel,
 #gameover {
   font-size: 36px;
   font-family: 'Audiowide', cursive;
@@ -51,4 +52,20 @@ body {
 }
 .previous {
   float: left;
+}
+#start-btn {
+  position: absolute;
+  width: 280px;
+  font-family: 'Audiowide', cursive;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: #00ff27;
+  z-index: 5;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  margin: 20px auto;
+  background-color: #3a3838;
+  left: 0;
+  right: 0;
 }
