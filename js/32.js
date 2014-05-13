@@ -40,6 +40,6 @@ level = 32;
 
 world.add(target);
 world.addBehavior(targetAttraction);
-
+world.addBehavior(blackHoleAttraction);
 world.render();
 
