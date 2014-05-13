@@ -24,3 +24,5 @@ addPlanet(50, 150, 15, "mars.jpg");
 
 world.render();
 
+level = 3;
+

@@ -37,3 +37,5 @@ world.render();
 
 go = true;
 
+level = 1;
+

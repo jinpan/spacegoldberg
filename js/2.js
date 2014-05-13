@@ -38,3 +38,5 @@ world.add(capsule);
 world.render();
 
 go = true;
+
+level = 2;

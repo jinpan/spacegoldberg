@@ -7,9 +7,10 @@ var renderer = Physics.renderer('canvas', {
 });
 world.add(renderer);
 
-world.add([
-    Physics.behavior('interactive', renderer)
-]);
+var level = 0;
+
+var interActive = Physics.behavior('interactive', { el: renderer.el, moveThrottle: 10, minVel: {x:0,y:0}, maxVel: {x:0,y:0} });
+world.addBehavior(interActive);
 
 var collisionDetector = Physics.behavior('body-collision-detection', {
     check: true
@@ -76,17 +77,18 @@ world.on('interact:move', function( data ){
     if (grabbed){
         data.body.state.pos.x = data.x; 
         data.body.state.pos.y = data.y;
-		data.body.treatment = "kinematic";
+        data.body.treatment = "kinematic";
     }
 });
 // when the viewport is released (mouseup, touchend)
 world.on('interact:release', function( data ){
     data.x; // the x coord
     data.y; // the y coord
-	console.log(data);
     grabbed = false;
 
 });
+
+
 
 var go = false;
 
