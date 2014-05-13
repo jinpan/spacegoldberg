@@ -15,7 +15,7 @@
     <div class="ui page dimmer active" id="intro">
         <div class="content" id="story">
             <div class="center">
-                <h1>Space Goldberg</h1>
+                <h1>Space Nursery</h1>
                 <p>The Earth is dying. Humanity has used up much of her resources, and the Sun is bloating into a red giant that will soon consume the Earth. It is time to move onward to a new Solar System. You are the leader of the last group of humans, whose hope lies in you and your ability to pilot the last spaceship to a new home.</p>
 
                 <p>Humanity has discovered a new technology. They call it the bender. By warping space time, the bender can transport spaceships across large distances in the galaxy. Unfortunately, the bender can only work if it is a considerable distance from any other large bodies of matter.</p>
@@ -28,8 +28,8 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("#intro").dimmer('show');
-            $("#audio").play();
-        }
+            $("#audio")[0].play();
+        });
         $("#intro").click(function() {
             $("#intro").dimmer('hide');
             setTimeout(function() {location = "1.html"}, 500);
