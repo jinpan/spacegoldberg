@@ -2,12 +2,15 @@ var target = Physics.body('circle', {
     x: 800,
     y: 600,
     treatment: 'kinematic',
-    radius: 15
+    radius: 20
 });
 
 var targetAttraction = Physics.behavior('attractor', {
     pos: target.state.pos
 });
+
+target.view = new Image();
+target.view.src=('css/images/galaxy.jpg');
 
 var blackHoleAttraction = Physics.behavior('attractor', {
     strength: 10,

@@ -9,6 +9,9 @@ var targetAttraction = Physics.behavior('attractor', {
     pos: target.state.pos
 });
 
+target.view = new Image();
+target.view.src=('css/images/galaxy.jpg');
+
 var blackHoleAttraction = Physics.behavior('attractor', {
     strength: 10,
     pos: {x: 500,y: 500}
@@ -29,11 +32,11 @@ capsule.view.src = ('css/images/spaceship.png');
 
 world.add(capsule);
 
-// earth
-addPlanet(50, 50, 20, "earth.jpg");
+
+addPlanet(50, 50, 20, "rogue_blue.png");
 
 // venus
-addPlanet(50, 100, 20, "venus.jpg");
+addPlanet(50, 100, 25, "rogue_orange.png");
 
 
 level = 32;
