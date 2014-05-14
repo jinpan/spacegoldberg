@@ -114,9 +114,17 @@ function gameOver() {
 
 function nextLevel() {
     $("#nextlevel").dimmer("show");
-    setTimeout(function(){location = "2.html"}, 500);
+    if (level === 1) {
+        setTimeout(function(){location = "2.html"}, 500);
+    }
+    else if (level === 2) {
+        setTimeout(function(){location = "3a.html"}, 500);
+    }
+    else if (level === 31) {
+        setTimeout(function(){location = "3b.html"}, 500);
+    }
+        
 }
-
 
 $(document).ready(function() {
     if (location.hash == "") {
