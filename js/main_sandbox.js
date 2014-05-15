@@ -78,7 +78,7 @@ world.on('interact:move', function( data ){
     data.y; // the y coord
     //data.body; // the body that was grabbed (if applicable)
     if (grabbed){
-        data.body.state.pos.x = data.x; 
+        data.body.state.pos.x = data.x;
         data.body.state.pos.y = data.y;
         data.body.treatment = "kinematic";
         planetAttraction.position(data.body.state.pos);
@@ -142,7 +142,7 @@ function addPlanet(x, y, radius, imgName) {
         treatment: 'kinematic',
         radius: radius
     });
-    
+
     if (imgName !== 'undefined') {
         planet.view = new Image();
         planet.view.src = ('css/images/' + imgName);
@@ -178,7 +178,7 @@ function nextLevel() {
     else if (level === 31) {
         setTimeout(function(){location = "3b.html"}, 500);
     }
-        
+
 }
 
 $(document).ready(function() {
@@ -189,6 +189,12 @@ $(document).ready(function() {
     $(".proceed-msg").click(function() {
         $("#intro").dimmer('hide');
         $("#audio")[0].play();
-    });    
+    });
+});
+
+$(document).keydown(function(e) {
+    if (e.keyCode == 82) {
+        gameOver();
+    }
 });
 

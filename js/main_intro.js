@@ -123,7 +123,7 @@ function nextLevel() {
     else if (level === 31) {
         setTimeout(function(){location = "3b.html"}, 500);
     }
-        
+
 }
 
 $(document).ready(function() {
@@ -134,5 +134,11 @@ $(document).ready(function() {
         $("#intro").dimmer('hide');
         $("#audio")[0].play();
     });
+});
+
+$(document).keydown(function(e) {
+    if (e.keyCode == 82) {
+        gameOver();
+    }
 });
 
